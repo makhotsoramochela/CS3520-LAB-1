@@ -1,0 +1,113 @@
+# Sesotho Calendar Days
+
+#A commented c++ code in the main function
+#int main(){
+#	int day;
+#	
+#	switch(day){
+#		case 1: cout<<"Mantaha"<<endl;
+#		 break;
+#		case 2: cout<<"Labobeli"<<endl;
+#		 break;
+#		case 3: cout<<"Laboraro"<<endl;
+#		 break;
+#		case 4: cout<<"Labone"<<endl;
+#		 break;
+#		case 5: cout<<"Labohlano"<<endl;
+#		 break;
+#		case 6: cout<<"Moqebelo"<<endl;
+#		 break;
+#		case 7: cout<<"Sontaha"<<endl;
+#		 break;
+#		default: cout<<"Error: Invalid day number entered"<<endl;       
+
+
+
+.data
+prompt:   .asciz "Enter day number (1-7): "
+day1:     .asciz "Mantaha\n"
+day2:     .asciz "Labobedi\n"
+day3:     .asciz "Laboraro\n"
+day4:     .asciz "Labone\n"
+day5:     .asciz "Labohlano\n"
+day6:     .asciz "Moqebelo\n"
+day7:     .asciz "Sontaha\n"
+error:    .asciz "Invalid day number!\n"
+
+.text
+.globl main
+main:
+    # prompt
+    la a0, prompt
+    li a7, 4
+    ecall
+
+    # read number
+    li a7, 5
+    ecall
+    mv t0, a0
+
+    li t1, 1
+    beq t0, t1, d1
+    li t1, 2
+    beq t0, t1, d2
+    li t1, 3
+    beq t0, t1, d3
+    li t1, 4
+    beq t0, t1, d4
+    li t1, 5
+    beq t0, t1, d5
+    li t1, 6
+    beq t0, t1, d6
+    li t1, 7
+    beq t0, t1, d7
+
+    # invalid
+    la a0, error
+    li a7, 4
+    ecall
+    j end
+
+d1: 
+  la a0, day1 
+  li a7, 4 
+  ecall 
+  j end
+
+d2: 
+  la a0, day2 
+  li a7, 4
+  ecall 
+  j end
+
+d3: 
+  la a0, day3 
+  li a7, 4 
+  ecall 
+  j end
+d4: 
+  la a0, day4 
+  li a7, 4 
+  ecall 
+  j end
+
+d5: 
+  la a0, day5 
+  li a7, 4 
+  ecall 
+  j end
+
+d6:
+  la a0, day6 
+  li a7, 4 
+  ecall
+   j end
+d7: 
+  la a0, day7 
+  li a7, 4 
+  ecall 
+  j end
+
+end:
+    li a7, 10
+    ecall

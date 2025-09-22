@@ -1,0 +1,63 @@
+# Grain Counting (Makopokopo)
+
+#A commented c++ code
+#int main(){
+#	int litres;
+#	cout<<"Enter the number of litres of grain: ";
+#	cin>>litres;
+#	
+#	int makopokopo = litres / 20; //A full 20 litres
+#	int remainder = litres % 20; // the leftover litres
+#	
+#	cout<<"Makopokopo: "<<makopokopo<<endl;
+#	cout<<"Remaining litres: "<<remainder<<endl;
+
+
+.data
+prompt:    .asciz "Enter litres of grain: "
+result1:   .asciz "Makokopo (20L) = "
+result2:   .asciz ", Remainder = "
+newline:   .asciz "\n"
+
+.text
+.globl main
+main:
+    # prompt
+    la a0, prompt
+    li a7, 4
+    ecall
+
+    # read input (litres)
+    li a7, 5
+    ecall
+    mv t0, a0          # t0 = litres
+
+    # divide by 20
+    li t1, 20
+    div t2, t0, t1     # t2 = quotient
+    rem t3, t0, t1     # t3 = remainder
+
+    # print makokopo
+    la a0, result1
+    li a7, 4
+    ecall
+    mv a0, t2
+    li a7, 1
+    ecall
+
+    # print remainder
+    la a0, result2
+    li a7, 4
+    ecall
+    mv a0, t3
+    li a7, 1
+    ecall
+
+    # newline
+    la a0, newline
+    li a7, 4
+    ecall
+
+    # exit
+    li a7, 10
+    ecall

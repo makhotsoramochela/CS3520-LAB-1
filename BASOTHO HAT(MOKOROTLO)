@@ -1,0 +1,54 @@
+# Basotho Hat Pattern (Mokorotlo)
+
+#A commmeted c++ code
+#	int height;
+#	cout<<"Enter height of mokorotlo: ";
+#	cin>>height;
+#	
+#	for(int i = 1; i <= height; i++){
+#		for(int j = 1; j <= i; j++){
+#			cout<<"*";
+#		cout<<endl;
+
+.data
+prompt:   .asciz "Enter height: "
+star:     .asciz "*"
+newline:  .asciz "\n"
+
+.text
+.globl main
+main:
+    # prompt
+    la a0, prompt
+    li a7, 4
+    ecall
+
+    # read n
+    li a7, 5
+    ecall
+    mv t0, a0        # t0 = height
+
+    li t1, 1         # row counter = 1
+
+outer_loop:
+    bgt t1, t0, done   # if row > height, exit
+
+    mv t2, t1          # print row stars
+inner_loop:
+    beqz t2, print_newline
+    la a0, star
+    li a7, 4
+    ecall
+    addi t2, t2, -1
+    j inner_loop
+
+print_newline:
+    la a0, newline
+    li a7, 4
+    ecall
+    addi t1, t1, 1
+    j outer_loop
+
+done:
+    li a7, 10
+    ecall
